@@ -6,7 +6,7 @@ class ComplexNumber{
 	public:
 		double real;
 		double imag;
-		ComplexNumber(double=0,double=0);
+		ComplexNumber(double = 0,double = 0);
 		ComplexNumber operator+(const ComplexNumber &);
 		ComplexNumber operator-(const ComplexNumber &);
 		ComplexNumber operator*(const ComplexNumber &);
