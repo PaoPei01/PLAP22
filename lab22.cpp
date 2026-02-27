@@ -6,7 +6,7 @@ class ComplexNumber{
 	public:
 		double real;
 		double imag;
-		ComplexNumber(double,double);
+		ComplexNumber(double=0,double=0);
 		ComplexNumber operator+(const ComplexNumber &);
 		ComplexNumber operator-(const ComplexNumber &);
 		ComplexNumber operator*(const ComplexNumber &);
@@ -16,7 +16,7 @@ class ComplexNumber{
 		double angle();
 };
 
-ComplexNumber::ComplexNumber(double x = 0,double y = 0){
+ComplexNumber::ComplexNumber(double x , double y){
 	real = x; imag = y;
 }
 
@@ -29,6 +29,57 @@ ComplexNumber ComplexNumber::operator-(const ComplexNumber &c){
 }
 
 //Write your code here
+
+ComplexNumber operator+(double s, const ComplexNumber &c){
+	return ComplexNumber(s,0) + c;
+}
+
+ComplexNumber operator-(double s, const ComplexNumber &c){
+	return ComplexNumber(s,0) - c;
+}
+
+ostream & operator<<(ostream &os, const ComplexNumber &c){
+	if(c.imag != 0.0){
+		if(c.real == 0.0) return os << c.imag << "i"; 
+		return os << c.real << ((c.imag > 0) ? "+" : "") << c.imag << "i"; 
+	}
+	return os << c.real;
+	
+}
+
+ComplexNumber ComplexNumber::operator*(const ComplexNumber &c){
+	return ComplexNumber(real*c.real - imag*c.imag, real*c.imag + imag*c.real);
+}
+
+ComplexNumber operator*(double s, const ComplexNumber &c){
+	return ComplexNumber(s,0) * c;
+}
+
+ComplexNumber ComplexNumber::operator/(const ComplexNumber &c){
+	return 
+	ComplexNumber((real*c.real + imag*c.imag)/(c.real*c.real + c.imag*c.imag) ,
+		(imag*c.real - real*c.imag)/(c.real*c.real + c.imag*c.imag));
+}
+
+ComplexNumber operator/(double s, const ComplexNumber &c){
+	return ComplexNumber(s,0)/c;
+}
+
+bool ComplexNumber::operator==(const ComplexNumber &c){
+	return (real==c.real && imag==c.imag);
+}
+
+bool operator==(double s, const ComplexNumber &c){
+	return ComplexNumber(s,0) == c;
+}
+
+double ComplexNumber::abs(){
+	return sqrt(real*real+imag*imag);
+}
+
+double ComplexNumber::angle(){
+	return atan2(imag,real)*180/M_PI;
+}
 
 int main(){
 	ComplexNumber a(1.5,2),b(3.2,-2.5),c(-1,1.2);	
@@ -70,7 +121,6 @@ int main(){
 	cout << (ComplexNumber(1,1) == 1) << "\n";
 	cout << (0 == ComplexNumber()) << "\n";
 }
-
 
 
 
